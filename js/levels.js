@@ -1,0 +1,241 @@
+/* TRAP WORLD — level definitions
+   Coordinate space: y grows downward. Ground surface sits at y = 232.
+   The player is 10x14, so a "feet on ground" spawn is y = 218.
+   Logical viewport: 480 x 270.
+*/
+
+const ground = (x, w, y = 232, h = 38) => ({ x, y, w, h, kind: 'ground' });
+const plat = (x, y, w, h) => ({ x, y, w, h, kind: 'platform' });
+
+export const LEVELS = [
+  /* ================================================================
+     LEVEL 1 — THE FORGOTTEN FOREST
+     ================================================================ */
+  {
+    id: 1,
+    name: 'The Forgotten Forest',
+    theme: 'forest',
+    width: 2300,
+    height: 270,
+    start: { x: 40, y: 216 },
+    goal: { x: 2210, y: 186, w: 28, h: 46 },
+    checkpoints: [{ x: 1260, y: 232 }],
+    platforms: [
+      ground(0, 420),
+      ground(470, 300),
+      ground(830, 350),
+      ground(1240, 400),
+      ground(1700, 600),
+      plat(300, 192, 64, 12),
+      plat(560, 186, 64, 12),
+      plat(900, 180, 70, 12),
+      plat(1290, 186, 70, 12),
+      plat(1760, 190, 80, 12),
+    ],
+    traps: [
+      { type: 'hiddenSpikes', x: 180, y: 210, w: 36, h: 22 },
+      { type: 'hiddenSpikes', x: 330, y: 210, w: 32, h: 22, delay: 0.3 },
+      { type: 'collapsingFloor', x: 620, y: 232, w: 70, h: 38, delay: 0.25 },
+      { type: 'fakePlatform', x: 560, y: 186, w: 64, h: 12, delay: 0.3 },
+      { type: 'movingSpike', x: 950, y: 216, w: 14, h: 16, axis: 'x', range: 120, speed: 55 },
+      { type: 'disappearingPlatform', x: 1190, y: 206, w: 44, h: 12, delay: 0.25, respawn: 2.5 },
+      { type: 'fallingCeiling', x: 1320, y: 0, w: 60, h: 50, trigger: { x: 1320, y: 170, w: 60, h: 62 } },
+      { type: 'enemy', x: 1800, y: 212, w: 14, h: 14, minX: 1760, maxX: 1920, speed: 45 },
+      { type: 'hiddenSpikes', x: 2000, y: 210, w: 40, h: 22 },
+    ],
+  },
+
+  /* ================================================================
+     LEVEL 2 — THE BROKEN CASTLE
+     ================================================================ */
+  {
+    id: 2,
+    name: 'The Broken Castle',
+    theme: 'castle',
+    width: 2600,
+    height: 270,
+    start: { x: 40, y: 216 },
+    goal: { x: 2500, y: 186, w: 28, h: 46 },
+    checkpoints: [{ x: 1020, y: 232 }, { x: 1900, y: 232 }],
+    platforms: [
+      ground(0, 380),
+      ground(430, 260),
+      ground(740, 200),
+      ground(990, 420),
+      ground(1460, 240),
+      ground(1860, 740),
+      plat(300, 192, 60, 12),
+      plat(760, 192, 70, 12),
+      plat(1000, 160, 60, 12),
+      plat(1180, 192, 70, 12),
+      plat(1500, 192, 70, 12),
+      plat(1950, 160, 70, 12),
+    ],
+    traps: [
+      { type: 'crusher', x: 520, y: 40, w: 70, h: 100, axis: 'y', range: 92, speed: 90 },
+      { type: 'fallingCeiling', x: 820, y: 0, w: 70, h: 60, trigger: { x: 820, y: 160, w: 70, h: 72 } },
+      { type: 'collapsingFloor', x: 1080, y: 232, w: 80, h: 38, delay: 0.2 },
+      { type: 'movingSpike', x: 1200, y: 216, w: 14, h: 16, axis: 'x', range: 130, speed: 70 },
+      { type: 'crusher', x: 1560, y: 20, w: 50, h: 120, axis: 'y', range: 92, speed: 130, trigger: { x: 1500, y: 140, w: 60, h: 92 } },
+      { type: 'movingPlatform', x: 1700, y: 200, w: 64, h: 12, axis: 'x', range: 100, speed: 55 },
+      { type: 'disappearingPlatform', x: 1420, y: 200, w: 50, h: 12, delay: 0.3, respawn: 3 },
+      { type: 'invisibleWall', x: 2200, y: 110, w: 16, h: 90 },
+      { type: 'enemy', x: 2000, y: 212, w: 14, h: 14, minX: 1950, maxX: 2150, speed: 55 },
+      { type: 'hiddenSpikes', x: 2300, y: 210, w: 40, h: 22, delay: 0.25 },
+    ],
+  },
+
+  /* ================================================================
+     LEVEL 3 — THE LAVA DEPTHS
+     ================================================================ */
+  {
+    id: 3,
+    name: 'The Lava Depths',
+    theme: 'lava',
+    width: 2800,
+    height: 270,
+    start: { x: 40, y: 216 },
+    goal: { x: 2740, y: 42, w: 28, h: 46 },
+    checkpoints: [{ x: 1000, y: 232 }, { x: 2000, y: 232 }],
+    platforms: [
+      ground(0, 340),
+      ground(400, 240),
+      ground(700, 200),
+      ground(960, 260),
+      ground(1280, 300),
+      ground(1640, 260),
+      ground(1960, 340),
+      ground(2360, 440),
+      plat(340, 176, 60, 12),
+      plat(660, 176, 60, 12),
+      plat(920, 176, 60, 12),
+      plat(1240, 176, 60, 12),
+      plat(1600, 176, 60, 12),
+      plat(1920, 176, 60, 12),
+      plat(2400, 190, 64, 12),
+      plat(2520, 160, 64, 12),
+      plat(2620, 130, 64, 12),
+      plat(2720, 88, 80, 12),
+    ],
+    traps: [
+      { type: 'lava', x: 340, y: 246, w: 60, h: 24, riseTo: 246 },
+      { type: 'lava', x: 640, y: 246, w: 60, h: 24, riseTo: 246 },
+      { type: 'lava', x: 900, y: 246, w: 60, h: 24, riseTo: 246 },
+      { type: 'lava', x: 1220, y: 246, w: 60, h: 24, riseTo: 246 },
+      { type: 'lava', x: 1580, y: 246, w: 60, h: 24, riseTo: 246 },
+      { type: 'lava', x: 1900, y: 246, w: 60, h: 24, riseTo: 246 },
+      { type: 'lava', x: 2300, y: 246, w: 60, h: 24, riseTo: 246 },
+      { type: 'lava', x: 2360, y: 258, w: 440, h: 12, riseTo: 200, speed: 9, trigger: { x: 2280, y: 0, w: 80, h: 270 } },
+      { type: 'hiddenSpikes', x: 760, y: 210, w: 36, h: 22, delay: 0.2 },
+      { type: 'movingSpike', x: 1050, y: 216, w: 14, h: 16, axis: 'x', range: 100, speed: 75 },
+      { type: 'disappearingPlatform', x: 1220, y: 200, w: 50, h: 12, delay: 0.3, respawn: 3 },
+      { type: 'fallingCeiling', x: 1700, y: 0, w: 64, h: 56, trigger: { x: 1700, y: 160, w: 64, h: 72 } },
+      { type: 'crusher', x: 2050, y: 40, w: 60, h: 100, axis: 'y', range: 92, speed: 110 },
+      { type: 'enemy', x: 1400, y: 206, w: 16, h: 16, minX: 1300, maxX: 1500, speed: 60 },
+    ],
+  },
+
+  /* ================================================================
+     LEVEL 4 — THE SHADOW FACTORY
+     ================================================================ */
+  {
+    id: 4,
+    name: 'The Shadow Factory',
+    theme: 'factory',
+    width: 3000,
+    height: 270,
+    start: { x: 40, y: 216 },
+    goal: { x: 2900, y: 186, w: 28, h: 46 },
+    checkpoints: [{ x: 1300, y: 232 }, { x: 2200, y: 232 }],
+    platforms: [
+      ground(0, 300),
+      ground(360, 220),
+      ground(640, 240),
+      ground(940, 200),
+      ground(1200, 260),
+      ground(1520, 280),
+      ground(1860, 240),
+      ground(2160, 300),
+      ground(2520, 480),
+      plat(300, 192, 60, 12),
+      plat(600, 176, 60, 12),
+      plat(900, 176, 60, 12),
+      plat(1160, 176, 60, 12),
+      plat(1480, 176, 60, 12),
+      plat(1820, 176, 60, 12),
+      plat(2120, 176, 60, 12),
+      plat(2480, 176, 60, 12),
+    ],
+    traps: [
+      { type: 'crusher', x: 400, y: 40, w: 50, h: 100, axis: 'y', range: 92, speed: 110 },
+      { type: 'crusher', x: 500, y: 40, w: 50, h: 100, axis: 'y', range: 92, speed: 110, phase: 0.9 },
+      { type: 'movingSpike', x: 680, y: 216, w: 14, h: 16, axis: 'x', range: 150, speed: 90 },
+      { type: 'fallingCeiling', x: 1000, y: 0, w: 64, h: 56, trigger: { x: 1000, y: 160, w: 64, h: 72 } },
+      { type: 'invisibleWall', x: 1240, y: 120, w: 16, h: 80 },
+      { type: 'crusher', x: 1350, y: 20, w: 60, h: 120, axis: 'y', range: 92, speed: 150, trigger: { x: 1300, y: 140, w: 60, h: 92 } },
+      { type: 'enemy', x: 1600, y: 212, w: 14, h: 14, minX: 1520, maxX: 1750, speed: 70 },
+      { type: 'teleport', x: 1900, y: 186, w: 32, h: 46, to: { x: 1520, y: 200 } },
+      { type: 'movingSpike', x: 2250, y: 216, w: 14, h: 16, axis: 'x', range: 120, speed: 100 },
+      { type: 'hiddenSpikes', x: 2380, y: 210, w: 40, h: 22, delay: 0.2 },
+      { type: 'disappearingPlatform', x: 2470, y: 200, w: 44, h: 12, delay: 0.3, respawn: 2.5 },
+      { type: 'crusher', x: 2600, y: 20, w: 60, h: 120, axis: 'y', range: 92, speed: 140, phase: 0.5 },
+      { type: 'fallingCeiling', x: 2750, y: 0, w: 64, h: 56, trigger: { x: 2750, y: 160, w: 64, h: 72 } },
+    ],
+  },
+
+  /* ================================================================
+     LEVEL 5 — THE FINAL NIGHTMARE
+     ================================================================ */
+  {
+    id: 5,
+    name: 'The Final Nightmare',
+    theme: 'nightmare',
+    width: 3200,
+    height: 270,
+    start: { x: 40, y: 216 },
+    goal: { x: 3100, y: 186, w: 28, h: 46 },
+    checkpoints: [{ x: 1000, y: 232 }, { x: 2000, y: 232 }, { x: 2700, y: 232 }],
+    platforms: [
+      ground(0, 300),
+      ground(360, 180),
+      ground(600, 200),
+      ground(860, 180),
+      ground(1100, 200),
+      ground(1360, 180),
+      ground(1600, 200),
+      ground(1860, 180),
+      ground(2100, 200),
+      ground(2360, 240),
+      ground(2660, 540),
+      plat(300, 180, 60, 12),
+      plat(560, 172, 60, 12),
+      plat(820, 172, 60, 12),
+      plat(1060, 172, 60, 12),
+      plat(1320, 172, 60, 12),
+      plat(1560, 172, 60, 12),
+      plat(1820, 172, 60, 12),
+      plat(2060, 172, 60, 12),
+      plat(2320, 168, 60, 12),
+      plat(2620, 168, 60, 12),
+    ],
+    traps: [
+      { type: 'hiddenSpikes', x: 200, y: 210, w: 36, h: 22 },
+      { type: 'movingSpike', x: 420, y: 216, w: 14, h: 16, axis: 'x', range: 100, speed: 90 },
+      { type: 'collapsingFloor', x: 700, y: 232, w: 70, h: 38, delay: 0.2 },
+      { type: 'fallingCeiling', x: 900, y: 0, w: 64, h: 56, trigger: { x: 900, y: 160, w: 64, h: 72 } },
+      { type: 'crusher', x: 1150, y: 20, w: 60, h: 120, axis: 'y', range: 92, speed: 130 },
+      { type: 'disappearingPlatform', x: 1320, y: 200, w: 44, h: 12, delay: 0.25, respawn: 2 },
+      { type: 'enemy', x: 1450, y: 212, w: 14, h: 14, minX: 1380, maxX: 1520, speed: 80 },
+      { type: 'fallingCeiling', x: 1680, y: 0, w: 64, h: 56, trigger: { x: 1680, y: 160, w: 64, h: 72 } },
+      { type: 'movingSpike', x: 1900, y: 216, w: 14, h: 16, axis: 'x', range: 120, speed: 110 },
+      { type: 'teleport', x: 2150, y: 186, w: 32, h: 46, to: { x: 1650, y: 200 } },
+      { type: 'fakeExit', x: 2380, y: 186, w: 28, h: 46, effect: 'spikes' },
+      { type: 'crusher', x: 2500, y: 20, w: 60, h: 120, axis: 'y', range: 92, speed: 160, trigger: { x: 2460, y: 140, w: 60, h: 92 } },
+      { type: 'hiddenSpikes', x: 2750, y: 210, w: 40, h: 22, delay: 0.15 },
+      { type: 'movingSpike', x: 2850, y: 216, w: 14, h: 16, axis: 'x', range: 140, speed: 120 },
+      { type: 'fallingCeiling', x: 2950, y: 0, w: 64, h: 56, trigger: { x: 2950, y: 160, w: 64, h: 72 } },
+    ],
+  },
+];
+
+export const LEVEL_COUNT = LEVELS.length;
