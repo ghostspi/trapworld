@@ -1,0 +1,107 @@
+/* ============================================================
+   TRAP WORLD — base layout & design system
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; }
+
+:root {
+  --bg-0: #05070f;
+  --bg-1: #0b1120;
+  --bg-2: #121b30;
+  --line: #1e2c48;
+  --line-2: #2b3f66;
+  --txt: #dbe6ff;
+  --txt-dim: #8ea2c8;
+  --cyan: #6df2ff;
+  --pink: #ff5c8a;
+  --gold: #ffd166;
+  --green: #5ef2a0;
+  --shadow: 0 0 24px rgba(109, 242, 255, 0.18);
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg-0);
+  color: var(--txt);
+  font-family: "Courier New", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-weight: 700;
+  letter-spacing: 1px;
+  overscroll-behavior: none;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+#app {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 0%, #0d1730 0%, #05070f 70%);
+}
+
+#stage {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  overflow: hidden;
+}
+
+#canvas-wrap {
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+canvas#game-canvas {
+  display: block;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  background: #000;
+  box-shadow: 0 0 60px rgba(109, 242, 255, 0.10), 0 0 2px rgba(109, 242, 255, 0.5);
+  border-radius: 2px;
+  touch-action: none;
+}
+
+/* ---------- generic helpers ---------- */
+.hidden { display: none !important; }
+
+/* ---------- toast ---------- */
+.toast {
+  position: fixed;
+  left: 50%;
+  top: 18%;
+  transform: translate(-50%, -10px);
+  padding: 10px 20px;
+  background: rgba(10, 18, 34, 0.92);
+  border: 2px solid var(--cyan);
+  color: var(--cyan);
+  font-size: 13px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  z-index: 200;
+  box-shadow: var(--shadow);
+}
+.toast.show {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
