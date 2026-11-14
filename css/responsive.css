@@ -1,0 +1,72 @@
+/* ============================================================
+   TRAP WORLD — responsive adaptations
+   ============================================================ */
+
+/* --- short laptop screens --- */
+@media (max-height: 620px) {
+  #hud { padding: 4px 10px; }
+  .hud-badge { width: 24px; height: 24px; font-size: 11px; }
+  .hud-name { font-size: 9px; }
+  .hud-progress-track { height: 6px; }
+  .tc-btn { width: 58px; height: 58px; font-size: 20px; }
+  .tc-jump { width: 68px; height: 68px; font-size: 24px; }
+  #touch-controls { padding: 6px 12px 10px; }
+}
+
+/* --- tablets --- */
+@media (max-width: 1024px) {
+  .screen-inner { width: min(520px, 100%); }
+}
+
+/* --- phones --- */
+@media (max-width: 640px) {
+  .logo { letter-spacing: 5px; }
+  .tagline { font-size: 8px; letter-spacing: 3px; }
+  .btn { padding: 11px 12px; font-size: 11px; letter-spacing: 3px; }
+  .screen-inner { padding: 16px 12px; gap: 11px; }
+  .screen-title { font-size: 15px; letter-spacing: 4px; }
+  .level-grid { grid-template-columns: 1fr 1fr; }
+  .level-num { font-size: 18px; }
+  .level-title { font-size: 9px; }
+  .setting-row { grid-template-columns: 1fr 96px 30px; font-size: 9px; }
+  .help-list { font-size: 10px; }
+  .menu-foot { font-size: 8px; }
+  .hud-center { max-width: none; }
+  .hud-name { display: none; }
+  .hud-stat { display: none; }
+  .hud-progress-text { font-size: 9px; min-width: 28px; }
+}
+
+/* --- landscape phones: side controls --- */
+@media (max-height: 460px) and (orientation: landscape) {
+  #touch-controls {
+    padding: 4px 18px 8px;
+  }
+  .tc-btn { width: 62px; height: 62px; font-size: 22px; border-radius: 12px; }
+  .tc-jump { width: 74px; height: 74px; font-size: 26px; }
+  .screen-inner { padding: 12px; gap: 8px; }
+  .logo { font-size: clamp(26px, 8vh, 46px); }
+  .menu-buttons { gap: 6px; }
+  .btn { padding: 8px 12px; font-size: 10px; }
+}
+
+/* --- very small phones --- */
+@media (max-width: 380px) {
+  .level-grid { grid-template-columns: 1fr; }
+  .tc-btn { width: 60px; height: 60px; font-size: 20px; }
+  .tc-jump { width: 70px; height: 70px; }
+}
+
+/* --- portrait rotation hint is handled by JS-driven class --- */
+body.portrait-hint::after {
+  content: "↻ Rotate your device for a wider view";
+  position: fixed;
+  left: 50%;
+  bottom: 8px;
+  transform: translateX(-50%);
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: #5b6d90;
+  z-index: 30;
+  pointer-events: none;
+}
