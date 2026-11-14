@@ -1,0 +1,148 @@
+/* ============================================================
+   TRAP WORLD — HUD, canvas & touch controls
+   ============================================================ */
+#hud {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 6px 14px;
+  background: linear-gradient(180deg, rgba(10, 17, 32, 0.98), rgba(5, 9, 18, 0.95));
+  border-bottom: 2px solid var(--line);
+  z-index: 20;
+}
+
+.hud-left, .hud-right, .hud-center {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.hud-badge {
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(180deg, #16324e, #0b1c2e);
+  border: 2px solid var(--cyan);
+  color: var(--cyan);
+  font-size: 14px;
+  box-shadow: 0 0 12px rgba(109, 242, 255, 0.35);
+}
+
+.hud-text { display: flex; flex-direction: column; line-height: 1.15; }
+
+.hud-label {
+  font-size: 8px;
+  letter-spacing: 2px;
+  color: var(--txt-dim);
+}
+
+.hud-name {
+  font-size: 11px;
+  color: var(--txt);
+  white-space: nowrap;
+}
+
+.hud-center { flex: 1 1 auto; max-width: 340px; }
+
+.hud-progress-track {
+  flex: 1 1 auto;
+  height: 8px;
+  background: #0a1424;
+  border: 1px solid var(--line-2);
+  overflow: hidden;
+  position: relative;
+}
+.hud-progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--cyan), var(--green));
+  box-shadow: 0 0 10px rgba(109, 242, 255, 0.7);
+  transition: width 0.16s linear;
+}
+
+.hud-progress-text {
+  font-size: 10px;
+  color: var(--txt-dim);
+  min-width: 34px;
+  text-align: right;
+}
+
+.hud-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  line-height: 1.1;
+}
+.hud-stat span:last-child { font-size: 13px; color: var(--pink); }
+
+.icon-btn {
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  background: #0b1626;
+  border: 2px solid var(--line-2);
+  color: var(--txt);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: border-color 0.12s, color 0.12s, transform 0.08s;
+}
+.icon-btn:hover { border-color: var(--cyan); color: var(--cyan); }
+.icon-btn:active { transform: scale(0.94); }
+.icon-btn.muted { color: var(--pink); border-color: var(--pink); }
+
+/* ---------- touch controls ---------- */
+#touch-controls {
+  display: none;
+  flex: 0 0 auto;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 14px 14px;
+  gap: 12px;
+  background: linear-gradient(0deg, rgba(6, 10, 20, 0.98), rgba(6, 10, 20, 0));
+  z-index: 15;
+}
+
+body.touch-device #touch-controls:not(.hidden) { display: flex; }
+
+.tc-group { display: flex; gap: 12px; align-items: center; }
+
+.tc-btn {
+  width: 72px;
+  height: 72px;
+  display: grid;
+  place-items: center;
+  font-size: 26px;
+  color: var(--txt);
+  background: rgba(18, 30, 52, 0.85);
+  border: 2px solid var(--line-2);
+  border-radius: 14px;
+  font-family: inherit;
+  touch-action: none;
+  cursor: pointer;
+  transition: background 0.06s, border-color 0.06s, transform 0.06s;
+  box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.45);
+}
+.tc-btn.active {
+  background: rgba(109, 242, 255, 0.22);
+  border-color: var(--cyan);
+  color: var(--cyan);
+  transform: scale(0.95);
+}
+.tc-jump {
+  width: 84px;
+  height: 84px;
+  font-size: 30px;
+  border-color: rgba(255, 92, 138, 0.6);
+}
+.tc-jump.active {
+  background: rgba(255, 92, 138, 0.22);
+  border-color: var(--pink);
+  color: var(--pink);
+}
