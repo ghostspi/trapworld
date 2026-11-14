@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+<meta name="theme-color" content="#05070f" />
+<meta name="description" content="TRAP WORLD — a hardcore pixel-art trap platformer." />
+<title>TRAP WORLD — Hardcore Pixel Platformer</title>
+<link rel="stylesheet" href="css/main.css" />
+<link rel="stylesheet" href="css/game.css" />
+<link rel="stylesheet" href="css/menu.css" />
+<link rel="stylesheet" href="css/responsive.css" />
+<link rel="stylesheet" href="css/animations.css" />
+</head>
+<body>
+
+<div id="app">
+  <!-- ============ HUD ============ -->
+  <header id="hud" class="hidden">
+    <div class="hud-left">
+      <div class="hud-badge" id="hud-level">1</div>
+      <div class="hud-text">
+        <span class="hud-label">LEVEL</span>
+        <span class="hud-name" id="hud-name">The Forgotten Forest</span>
+      </div>
+    </div>
+
+    <div class="hud-center">
+      <div class="hud-progress-track">
+        <div class="hud-progress-fill" id="hud-progress-fill"></div>
+      </div>
+      <span class="hud-progress-text" id="hud-progress-text">0%</span>
+    </div>
+
+    <div class="hud-right">
+      <div class="hud-stat"><span class="hud-label">DEATHS</span><span id="hud-deaths">0</span></div>
+      <button class="icon-btn" id="btn-mute" title="Toggle sound" aria-label="Toggle sound">♪</button>
+      <button class="icon-btn" id="btn-pause" title="Pause" aria-label="Pause">❚❚</button>
+    </div>
+  </header>
+
+  <!-- ============ STAGE ============ -->
+  <div id="stage">
+    <div id="canvas-wrap">
+      <canvas id="game-canvas" width="480" height="270"></canvas>
+    </div>
+
+    <div id="touch-controls" class="hidden">
+      <div class="tc-group tc-left">
+        <button class="tc-btn" data-action="left" aria-label="Move left">◀</button>
+        <button class="tc-btn" data-action="right" aria-label="Move right">▶</button>
+      </div>
+      <div class="tc-group tc-right">
+        <button class="tc-btn tc-jump" data-action="jump" aria-label="Jump">▲</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+</div>
+
+<!-- ============ SCREENS ============ -->
+<div id="screens">
+
+  <!-- MAIN MENU -->
+  <section id="screen-menu" class="screen active">
+    <div class="screen-inner">
+      <h1 class="logo">
+        <span class="logo-top">TRAP</span>
+        <span class="logo-bottom">WORLD</span>
+      </h1>
+      <p class="tagline">A hardcore pixel platformer</p>
+
+      <nav class="menu-buttons">
+        <button class="btn btn-primary" id="btn-play">PLAY</button>
+        <button class="btn" id="btn-levels">LEVEL SELECT</button>
+        <button class="btn" id="btn-settings">SETTINGS</button>
+        <button class="btn" id="btn-help">HOW TO PLAY</button>
+        <button class="btn" id="btn-credits">CREDITS</button>
+      </nav>
+
+      <p class="menu-foot">Arrow Keys / A-D to move · SPACE to jump (twice!) · R to restart · ESC to pause</p>
+    </div>
+  </section>
+
+  <!-- LEVEL SELECT -->
+  <section id="screen-levels" class="screen">
+    <div class="screen-inner wide">
+      <h2 class="screen-title">SELECT LEVEL</h2>
+      <div class="level-grid" id="level-grid"></div>
+      <button class="btn btn-back" data-back="1">BACK</button>
+    </div>
+  </section>
+
+  <!-- SETTINGS -->
+  <section id="screen-settings" class="screen">
+    <div class="screen-inner">
+      <h2 class="screen-title">SETTINGS</h2>
+
+      <div class="setting-row">
+        <label for="set-master">MASTER VOLUME</label>
+        <input type="range" id="set-master" min="0" max="100" value="90" />
+        <span class="setting-val" id="val-master">90</span>
+      </div>
+      <div class="setting-row">
+        <label for="set-music">MUSIC VOLUME</label>
+        <input type="range" id="set-music" min="0" max="100" value="35" />
+        <span class="setting-val" id="val-music">35</span>
+      </div>
+      <div class="setting-row">
+        <label for="set-sfx">SFX VOLUME</label>
+        <input type="range" id="set-sfx" min="0" max="100" value="70" />
+        <span class="setting-val" id="val-sfx">70</span>
+      </div>
+
+      <div class="setting-row">
+        <label for="set-music-on">MUSIC</label>
+        <input type="checkbox" id="set-music-on" checked />
+      </div>
+      <div class="setting-row">
+        <label for="set-sfx-on">SOUND EFFECTS</label>
+        <input type="checkbox" id="set-sfx-on" checked />
+      </div>
+      <div class="setting-row">
+        <label for="set-shake">SCREEN SHAKE</label>
+        <input type="checkbox" id="set-shake" checked />
+      </div>
+      <div class="setting-row">
+        <label for="set-quality">GRAPHICS QUALITY</label>
+        <select id="set-quality">
+          <option value="high">HIGH</option>
+          <option value="low">LOW</option>
+        </select>
+      </div>
+
+      <div class="menu-buttons row">
+        <button class="btn btn-danger" id="btn-reset-progress">RESET PROGRESS</button>
+        <button class="btn btn-back" data-back="1">BACK</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW TO PLAY -->
+  <section id="screen-help" class="screen">
+    <div class="screen-inner">
+      <h2 class="screen-title">HOW TO PLAY</h2>
+      <ul class="help-list">
+        <li><b>MOVE</b> — A / D or ← / →</li>
+        <li><b>JUMP</b> — SPACE, W or ↑ &nbsp;·&nbsp; press again in mid-air to <b>DOUBLE JUMP</b></li>
+        <li><b>RESTART</b> — R &nbsp;·&nbsp; <b>PAUSE</b> — ESC</li>
+        <li><b>MOBILE</b> — on-screen buttons appear automatically</li>
+        <li>Reach the glowing portal to finish the level.</li>
+        <li>Checkpoints save your progress inside a level.</li>
+        <li>Everything is out to kill you. Learn the traps. Try again.</li>
+      </ul>
+      <button class="btn btn-back" data-back="1">BACK</button>
+    </div>
+  </section>
+
+  <!-- CREDITS -->
+  <section id="screen-credits" class="screen">
+    <div class="screen-inner">
+      <h2 class="screen-title">CREDITS</h2>
+      <p class="credits-text">
+        <b>TRAP WORLD</b><br />
+        Design, code, pixel art &amp; procedural audio<br />
+        built entirely with HTML5 Canvas + JavaScript.<br /><br />
+        Inspired by the cruelest corners of the precision-platformer genre.<br />
+        All artwork and sound are original and generated at runtime.
+      </p>
+      <button class="btn btn-back" data-back="1">BACK</button>
+    </div>
+  </section>
+
+  <!-- PAUSE -->
+  <section id="screen-pause" class="screen">
+    <div class="screen-inner">
+      <h2 class="screen-title">PAUSED</h2>
+      <nav class="menu-buttons">
+        <button class="btn btn-primary" id="btn-resume">RESUME</button>
+        <button class="btn" id="btn-restart">RESTART LEVEL</button>
+        <button class="btn" id="btn-pause-settings">SETTINGS</button>
+        <button class="btn" id="btn-pause-menu">MAIN MENU</button>
+      </nav>
+    </div>
+  </section>
+
+  <!-- LEVEL COMPLETE -->
+  <section id="screen-complete" class="screen">
+    <div class="screen-inner">
+      <h2 class="screen-title success">LEVEL CLEARED</h2>
+      <p class="complete-name" id="complete-name">The Forgotten Forest</p>
+      <div class="complete-stats">
+        <div><span class="hud-label">DEATHS</span><b id="complete-deaths">0</b></div>
+        <div><span class="hud-label">TIME</span><b id="complete-time">0.0s</b></div>
+      </div>
+      <nav class="menu-buttons">
+        <button class="btn btn-primary" id="btn-next">NEXT LEVEL</button>
+        <button class="btn" id="btn-replay">REPLAY</button>
+        <button class="btn" id="btn-complete-menu">MAIN MENU</button>
+      </nav>
+    </div>
+  </section>
+
+</div>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>
